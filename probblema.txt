@@ -1,0 +1,207 @@
+root@cd43ae66c7eb:/app# jupyter notebook --ip=0.0.0.0. --port=8888 --no-browser --allow-root
+[I 2026-04-28 12:50:49.378 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2026-04-28 12:50:49.386 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2026-04-28 12:50:49.397 ServerApp] jupyterlab | extension was successfully linked.
+[I 2026-04-28 12:50:49.411 ServerApp] notebook | extension was successfully linked.
+[W 2026-04-28 12:50:49.510 ServerApp] notebook_shim | error linking extension: [Errno -2] Name or service not known
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 632, in get
+        value = obj._trait_values[self.name]
+                ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+    KeyError: 'allow_remote_access'
+    
+    During handling of the above exception, another exception occurred:
+    
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 1378, in _default_allow_remote
+        addr = ipaddress.ip_address(self.ip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/ipaddress.py", line 54, in ip_address
+        raise ValueError(f'{address!r} does not appear to be an IPv4 or IPv6 address')
+    ValueError: '0.0.0.0.' does not appear to be an IPv4 or IPv6 address
+    
+    During handling of the above exception, another exception occurred:
+    
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.11/site-packages/jupyter_server/extension/manager.py", line 388, in link_extension
+        extension.link_all_points(self.serverapp)
+      File "/usr/local/lib/python3.11/site-packages/jupyter_server/extension/manager.py", line 265, in link_all_points
+        self.link_point(point_name, serverapp)
+      File "/usr/local/lib/python3.11/site-packages/jupyter_server/extension/manager.py", line 250, in link_point
+        point.link(serverapp)
+      File "/usr/local/lib/python3.11/site-packages/jupyter_server/extension/manager.py", line 165, in link
+        linker(serverapp)
+      File "/usr/local/lib/python3.11/site-packages/notebook_shim/nbserver.py", line 109, in _link_jupyter_server_extension
+        members = diff_members(serverapp, nbapp)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/site-packages/notebook_shim/nbserver.py", line 62, in diff_members
+        m1 = public_members(obj1)
+             ^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/site-packages/notebook_shim/nbserver.py", line 56, in public_members
+        members = inspect.getmembers(obj)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/inspect.py", line 595, in getmembers
+        return _getmembers(object, predicate, getattr)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/inspect.py", line 573, in _getmembers
+        value = getter(object, key)
+                ^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 687, in __get__
+        return t.cast(G, self.get(obj, cls))  # the G should encode the Optional
+                         ^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 635, in get
+        default = obj.trait_defaults(self.name)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 1897, in trait_defaults
+        return t.cast(Sentinel, self._get_trait_default_generator(names[0])(self))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 1241, in __call__
+        return self.func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 1381, in _default_allow_remote
+        for info in socket.getaddrinfo(self.ip, self.port, 0, socket.SOCK_STREAM):
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/usr/local/lib/python3.11/socket.py", line 962, in getaddrinfo
+        for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    socket.gaierror: [Errno -2] Name or service not known
+[I 2026-04-28 12:50:49.530 ServerApp] Writing Jupyter server cookie secret to /root/.local/share/jupyter/runtime/jupyter_cookie_secret
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 632, in get
+    value = obj._trait_values[self.name]
+            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'allow_remote_access'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 1378, in _default_allow_remote
+    addr = ipaddress.ip_address(self.ip)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/ipaddress.py", line 54, in ip_address
+    raise ValueError(f'{address!r} does not appear to be an IPv4 or IPv6 address')
+ValueError: '0.0.0.0.' does not appear to be an IPv4 or IPv6 address
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/bin/jupyter-notebook", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/extension/application.py", line 628, in launch_instance
+    serverapp = cls.initialize_server(argv=args)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/extension/application.py", line 598, in initialize_server
+    serverapp.initialize(
+  File "/usr/local/lib/python3.11/site-packages/traitlets/config/application.py", line 118, in inner
+    return method(app, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 2836, in initialize
+    self.init_webapp()
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 2277, in init_webapp
+    self.web_app = ServerWebApplication(
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 284, in __init__
+    settings = self.init_settings(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 442, in init_settings
+    "allow_remote_access": jupyter_app.allow_remote_access,
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 687, in __get__
+    return t.cast(G, self.get(obj, cls))  # the G should encode the Optional
+                     ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 635, in get
+    default = obj.trait_defaults(self.name)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 1897, in trait_defaults
+    return t.cast(Sentinel, self._get_trait_default_generator(names[0])(self))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/traitlets/traitlets.py", line 1241, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jupyter_server/serverapp.py", line 1381, in _default_allow_remote
+    for info in socket.getaddrinfo(self.ip, self.port, 0, socket.SOCK_STREAM):
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -2] Name or service not known
+root@cd43ae66c7eb:/app# jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+[I 2026-04-28 12:51:37.754 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2026-04-28 12:51:37.759 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2026-04-28 12:51:37.768 ServerApp] jupyterlab | extension was successfully linked.
+[I 2026-04-28 12:51:37.774 ServerApp] notebook | extension was successfully linked.
+[I 2026-04-28 12:51:38.124 ServerApp] notebook_shim | extension was successfully linked.
+[I 2026-04-28 12:51:38.142 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2026-04-28 12:51:38.148 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2026-04-28 12:51:38.150 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2026-04-28 12:51:38.161 LabApp] JupyterLab extension loaded from /usr/local/lib/python3.11/site-packages/jupyterlab
+[I 2026-04-28 12:51:38.161 LabApp] JupyterLab application directory is /usr/local/share/jupyter/lab
+[I 2026-04-28 12:51:38.162 LabApp] Extension Manager is 'pypi'.
+[I 2026-04-28 12:51:38.228 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2026-04-28 12:51:38.233 ServerApp] notebook | extension was successfully loaded.
+[I 2026-04-28 12:51:38.234 ServerApp] Serving notebooks from local directory: /app
+[I 2026-04-28 12:51:38.235 ServerApp] Jupyter Server 2.17.0 is running at:
+[I 2026-04-28 12:51:38.235 ServerApp] http://cd43ae66c7eb:8888/tree?token=0ef9b9cbb09f357d988c5e4fcf41ed5f5fbc0fd800a833b1
+[I 2026-04-28 12:51:38.235 ServerApp]     http://127.0.0.1:8888/tree?token=0ef9b9cbb09f357d988c5e4fcf41ed5f5fbc0fd800a833b1
+[I 2026-04-28 12:51:38.235 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2026-04-28 12:51:38.239 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///root/.local/share/jupyter/runtime/jpserver-16-open.html
+    Or copy and paste one of these URLs:
+        http://cd43ae66c7eb:8888/tree?token=0ef9b9cbb09f357d988c5e4fcf41ed5f5fbc0fd800a833b1
+        http://127.0.0.1:8888/tree?token=0ef9b9cbb09f357d988c5e4fcf41ed5f5fbc0fd800a833b1
+[I 2026-04-28 12:51:38.270 ServerApp] Skipped non-installed server(s): basedpyright, bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyrefly, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+
+---
+
+## ANÁLISE DO QUE ACONTECEU
+
+### Havia dois comandos neste arquivo — um com erro e um correto.
+
+---
+
+### Comando 1 (com erro de digitação) — FALHOU
+
+    jupyter notebook --ip=0.0.0.0. --port=8888 ...
+                                ^
+                          ponto a mais aqui
+
+O endereço `0.0.0.0.` (com ponto no final) não é um IP válido. O Python
+rejeitou o valor e o servidor travou antes de subir. A mensagem central do
+erro foi:
+
+    ValueError: '0.0.0.0.' does not appear to be an IPv4 or IPv6 address
+
+Tudo que veio depois (o traceback longo com socket.gaierror) é consequência
+desse único ponto digitado a mais.
+
+---
+
+### Comando 2 (correto) — FUNCIONOU
+
+    jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+O servidor subiu normalmente. As linhas [I ...] são mensagens informativas
+(não são erros). A linha [C ...] é apenas a confirmação final do endereço.
+
+O servidor está rodando e aguardando conexão. Para acessar, basta abrir
+no navegador o link que apareceu no terminal:
+
+    http://127.0.0.1:8888/tree?token=0ef9b9cbb09f357d988c5e4fcf41ed5f5fbc0fd800a833b1
+
+A linha "Skipped non-installed server(s):" ao final é apenas aviso de que
+alguns servidores de linguagem opcionais (para autocompletar código) não
+estão instalados. Não afeta o funcionamento do Jupyter.
+
+---
+
+### Resumo
+
+| Situação          | Causa                              | Consequência                        |
+| --- | --- | --- |
+| Comando 1         | Ponto extra em `0.0.0.0.`         | Servidor não iniciou, erro fatal    |
+| Comando 2         | IP correto `0.0.0.0`              | Servidor rodando, tudo funcionando  |
+| Skipped servers   | Ferramentas opcionais ausentes     | Nenhuma — pode ignorar              |
