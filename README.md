@@ -112,6 +112,7 @@ O projeto seguiu as etapas do CRISP-DM:
 │                               Ex.: 1.0-gnl-exploracao-inicial.ipynb
 │
 ├── references/              <- Dicionários de dados, manuais e materiais de referência
+│   └── git_references.md   <- Padrão de commits (Conventional Commits) e Git Flow do projeto
 │
 ├── reports/                 <- Análises geradas em HTML, PDF, LaTeX etc.
 │   └── figures/             <- Gráficos e imagens para uso nos relatórios e no README
@@ -128,6 +129,8 @@ O projeto seguiu as etapas do CRISP-DM:
     └── visualization/
         └── visualize.py     <- Scripts para criar visualizações exploratórias e de resultado
 ```
+
+> Os commits seguem o padrão **[Conventional Commits](https://www.conventionalcommits.org)** com extensões documentadas em [references/git_references.md](references/git_references.md).
 
 ---
 
