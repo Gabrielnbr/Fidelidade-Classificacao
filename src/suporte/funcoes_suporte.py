@@ -18,13 +18,13 @@ def supressao_notacao(casa_decimal = 2):
     np.set_printoptions(suppress=True)
     pd.set_option('display.float_format', formato_float.format)
 
-def load_pickle(path: Path) -> Any:
-    with path.open("rb") as file:
+def load_pickle(path: Path):
+    with Path(path).open("rb") as file:
         return pickle.load(file)
 
-def save_pickle(path: Path):
-    with path.open("wb") as file:
-        pickle.dump(file)
+def save_pickle(obj, path: Path):
+    with Path(path).open("wb") as file:
+        pickle.dump(obj, file)
 
 def to_snake_case(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
