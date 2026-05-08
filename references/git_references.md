@@ -15,6 +15,7 @@ Formato: `tipo(escopo opcional): descrição curta no imperativo`
 | `test` | Adição ou atualização de testes | `test: testes unitários para build_features.py` |
 | `chore` | Tarefas de manutenção sem impacto direto no código de produção: remoção de arquivos, atualização de dependências, ajustes de configuração | `chore: removido notebook descartado da raiz` |
 | `perf` | Alteração que melhora a performance | `perf: substituído loop por operação vetorizada no pandas` |
+| `update` | Ajuste intencional em código já funcional, sem ser nova feature nem correção de bug | `update: invoice_date convertido para tipo date sem hora` |
 
 ---
 
