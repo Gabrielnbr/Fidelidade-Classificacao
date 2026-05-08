@@ -1,4 +1,6 @@
 import pickle
+import re
+
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -23,6 +25,10 @@ def load_pickle(path: Path) -> Any:
 def save_pickle(path: Path):
     with path.open("wb") as file:
         pickle.dump(file)
+
+def to_snake_case(name):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 def jupyter_settings(
                     altura: int = 12,
