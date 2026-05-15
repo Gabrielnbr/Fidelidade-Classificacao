@@ -37,7 +37,7 @@ def jupyter_settings(
     #%matplotlib inline
 
     plt.style.use( 'bmh' )
-    plt.rcParams['figure.figsize'] = [altura, largura]
+    plt.rcParams['figure.figsize'] = [largura, altura]
     plt.rcParams['font.size'] = fonte
 
     display( HTML( '<style>.container { width:100% !important; }</style>') )
