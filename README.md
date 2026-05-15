@@ -107,9 +107,9 @@ O projeto seguiu as etapas do CRISP-DM:
 ├── models/                  <- Modelos treinados, serializados e resumos de performance
 │
 ├── notebooks/               <- Notebooks Jupyter
-│                               Convenção de nome: número (ordenação) + iniciais do autor
+│                               Convenção de nome: número (ordenação)
 │                               + descrição curta separada por hífen.
-│                               Ex.: 1.0-gnl-exploracao-inicial.ipynb
+│                               Ex.: 1.0-exploracao-inicial.ipynb
 │
 ├── references/              <- Dicionários de dados, manuais e materiais de referência
 │   └── git_references.md   <- Padrão de commits (Conventional Commits) e Git Flow do projeto
