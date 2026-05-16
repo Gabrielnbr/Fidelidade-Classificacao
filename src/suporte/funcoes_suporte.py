@@ -117,7 +117,7 @@ def estatistica_descritiva(df: pd.DataFrame):
 
     return estatistica
 
-def visualizacao_dados_categoricos(df):
+def visualizacao_dados_categoricos(df, desc_perc_unit=False):
     for i in df:
         print(f'Atributo: {i}')
         print(f'Total de Valores Únicos: {len(df[i].sort_values().unique())}')
@@ -126,10 +126,11 @@ def visualizacao_dados_categoricos(df):
         print(f'Porcentagem Valores Nulos (%) : {df[i].isnull().sum() / len(df[i]) * 100:.2f}%\n')
         print(f'Valores Descritos: {df[i].sort_values().unique().tolist()}\n')
         
-        for valor in df[i].sort_values().unique():
-            contagem = (df[i] == valor).sum()
-            porcentagem = contagem/len(df[i])
-            print(f'Contagem de {valor}: {contagem}; Porcentagem em relação ao total:{porcentagem*100:.2f}%')
+        if desc_perc_unit:
+            for valor in df[i].sort_values().unique():
+                contagem = (df[i] == valor).sum()
+                porcentagem = contagem/len(df[i])
+                print(f'Contagem de {valor}: {contagem}; Porcentagem em relação ao total:{porcentagem*100:.2f}%')
 
         sns.countplot(data=df, x=i)
         plt.title(f'Contagem de valores para o atributo {i}')
