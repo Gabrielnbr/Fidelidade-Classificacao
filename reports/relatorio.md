@@ -30,6 +30,9 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 | 8    | 2     | Plotar histogramas das variáveis numéricas | verificar distribuição | Conjunto de histogramas | sim |  |  |
 | 9    | 3     | Identificar invoice_no com caracteres não-numéricos (potenciais cancelamentos) | Identificações de contexto de sucesso ou insucesso da compra | Confirmação da variabilidade do contexto de compra, especificado no próprio notebook na seção 1.4 . Necessidade de diversos tipos de tratamento a serem realizados no notebook 2.0 ainda neste ciclo | sim |  |  |
 | 10   | 3     | Identificar stock_code com caracteres não-numéricos (códigos não-produto) | Identificar contexto na variabilidade de tipos de categorização do estoque | Confirmação da variabilidade na classificação dos itens em estoque, especificado no próprio notebook na seção 1.4 . Necessidade de diversos tipos de tratamento a serem realizados no notebook 2.0 ainda neste ciclo| sim |  |  |
+| 11   | 4     | Estudar a coluna `description` | Coluna ainda não estudada | São as descrições dos produtos, a princípio não tem muito o que ser feito com ela. Outras observações no notebook 1.0 | sim |  |  |
+| 12   | 4     | Estudar a coluna `country` | Coluna ainda não estudada | São 37 países com quase 90% concentrado em 1 único país. Bem desbalanceado. Talvez mudar com lat-lon central. | sim |  |  |
+|    |      |  |  |  |  |  |  |
 
 
 ---
@@ -38,10 +41,13 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 
 | id | ciclo | ação | decisão | resultado | ativo | ciclo_fim | motivo |
 | -- | ----- | ---- | ------- | --------- | ----- | --------- | ------ |
-| 1  | 3     | Filtrar unit_price >= 0.010 | Retirar todos os valores de produtos zerados, pode ser sujeira, ainda tenho que analizar mais em ciclo próximo | retirado as linhas | sim |  |  |
+| 1  | 3     | Filtrar unit_price >= 0.04 | Retirar todos os valores de produtos zerados, pode ser sujeira, ainda tenho que analizar mais em ciclo próximo | retirado as linhas | sim |  |  |
 | 2  | 3     | Excluir stock_codes especiais (POST, D, C2, M, BANK CHARGES, PADS, DOT, CRUK) | Retirados, pois não irei trabalha-los agora. Quero testar o comportamento do modelo. | retirado as linhas | sim |  |  |
 | 3  | 3     | Separar quantity em df_compras (>0) e df_returns (<0) | Valores negativos em quantity foi identificado o insucesso da compara podendo ser retorno, mudança, cancelamento ou outros. Para o RFM muitas devoluções ou cancelamentos, talvez não seja um bom cliente. Explicações complementare notebook 1.0 seção 1.4. | Gerado mais 2 DF | sim |  |  |
 | 4  | 3     | Exportar df, df_compras e df_returns para data/interim/2.*.pkl | deixei 3 DF, poi 1 contém todo o histórico e os outros 2 possuem a separação do sucesso da compra  | 3 DF ao total | sim |  |  |
+| 5  | 4    | Retirar coluna `description` | Não há necessidade dela no momento | Retirado a coluna | sim |  |  |
+| 6  | 4    | Remover colunas 'European Community' e 'Unspecified' | Não são países ou são sujeiras. | Retirado linhas | sim |  |  |
+|    |      |  |  |  |  |  |  |
 
 ---
 
@@ -74,6 +80,7 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 | -- | ----- | ---- | ------- | --------- | ----- | --------- | ------ |
 | 1  | 3     | Aplicar MinMaxScaler em todas as colunas exceto customer_id | diminuir tamanho da escala para reduzir ruído | mms aplicado | sim |  |  |
 | 2  | 3     | Exportar df para data/interim/5.data_prep.pkl | para ser utilizar pelos próximos notebooks | novo arquivo de dados em pkl | sim |  |  |
+| 3  | 4     | Aplicar `np.log1p` em todas as colunas exceto customer_id | foi tentado com `np.log`, mas gerou muitos NaN devido a valores 0, tentativa de diminuir o pico e organizar a curva | Melhorou só um pouco a curva, vamos ver o impacto mais a frente | sim |  |  |
 
 ---
 
@@ -118,7 +125,7 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 | 3  | 1     | Calcular simples cluster profile | Verificar a cada ciclo como esse profile se comporta | DF simples com os valores de cada cluster | sim |  |  |
 | 4  | 2     | Plotar pairplot 2D das features colorido por cluster | Observar as relação 2 a 2 das variáveis | Ainda estão com clusters muito agrupados, continuar testando nas próximas iterações | sim |  |  |
 | 5  | 2     | Aplicar UMAP e plotar embedding 2D colorido por cluster | Verificar a distribuição topológica em 2d | péssima visualização, trabalhar melhor as features e talvez implantar o 3d | sim |  |  |
-| 5  | 3     | Aplicar UMAP e plotar embedding 3D colorido por cluster | Muita perca de informaçãono gráfico 2d | Clusters muito compactos, tem que ser trabalhado melhor as features | sim |  |  |
+| 6  | 3     | Aplicar UMAP e plotar embedding 3D colorido por cluster | Muita perca de informaçãono gráfico 2d | Clusters muito compactos, tem que ser trabalhado melhor as features | sim |  |  |
 
 ---
 
