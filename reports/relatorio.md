@@ -21,7 +21,7 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 | id   | ciclo | ação | decisão | resultado | ativo | ciclo_fim | motivo |
 | ---- | ----- | ---- | ------- | --------- | ----- | --------- | ------ |
 | 1    | 1     | Renomear colunas para snake_case | Mais bonitinho de trabalhar | Colunas em snake_case | sim |  |  |
-| 2    | 1     | Remover NAs em description e customer_id | 1º ciclo, só montar o pipe | Retirado 135000 linhas | sim |  |  |
+| 2    | 1     | Remover NAs em description e customer_id | 1º ciclo, só montar o pipe | Retirado 135000 linhas | não | 5 | Estratégia alterada: customer_id NaN passam a receber IDs artificiais (ação 13); NAs de description são tolerados pois a coluna é removida no notebook 2.0 |
 | 3    | 1     | Converter invoice_date para datetime | Tratamento padrão | datetime64[ns] aaaa/mm/dd | sim |  |  |
 | 4    | 1     | Converter customer_id para int | Tratamento padrão | int | sim |  |  |
 | 5    | 1     | Exportar df para data/interim/1.descricao.pkl | para ser utilizado pelos próximos notebooks | novo arquivo de dados em pkl | sim |  |  |
@@ -32,6 +32,7 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 | 10   | 3     | Identificar stock_code com caracteres não-numéricos (códigos não-produto) | Identificar contexto na variabilidade de tipos de categorização do estoque | Confirmação da variabilidade na classificação dos itens em estoque, especificado no próprio notebook na seção 1.4 . Necessidade de diversos tipos de tratamento a serem realizados no notebook 2.0 ainda neste ciclo| sim |  |  |
 | 11   | 4     | Estudar a coluna `description` | Coluna ainda não estudada | São as descrições dos produtos, a princípio não tem muito o que ser feito com ela. Outras observações no notebook 1.0 | sim |  |  |
 | 12   | 4     | Estudar a coluna `country` | Coluna ainda não estudada | São 37 países com quase 90% concentrado em 1 único país. Bem desbalanceado. Talvez mudar com lat-lon central. | sim |  |  |
+| 13   | 5     | Criar customer_ids artificiais para invoices sem customer_id | Aproveitar 135.080 linhas descartadas antes: cada invoice_no sem cliente recebe ID único sintético a partir de 19.000 (acima do max real 18.287) | Zero NAs em customer_id; 135.080 linhas preservadas no dataset | sim |  |  |
 |    |      |  |  |  |  |  |  |
 
 
@@ -42,11 +43,12 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 | id | ciclo | ação | decisão | resultado | ativo | ciclo_fim | motivo |
 | -- | ----- | ---- | ------- | --------- | ----- | --------- | ------ |
 | 1  | 3     | Filtrar unit_price >= 0.04 | Retirar todos os valores de produtos zerados, pode ser sujeira, ainda tenho que analizar mais em ciclo próximo | retirado as linhas | sim |  |  |
-| 2  | 3     | Excluir stock_codes especiais (POST, D, C2, M, BANK CHARGES, PADS, DOT, CRUK) | Retirados, pois não irei trabalha-los agora. Quero testar o comportamento do modelo. | retirado as linhas | sim |  |  |
+| 2  | 3     | Excluir stock_codes especiais (POST, D, C2, M, BANK CHARGES, PADS, DOT, CRUK) | Retirados, pois não irei trabalha-los agora. Quero testar o comportamento do modelo. | retirado as linhas | não | 5 | Lista incompleta; ciclo 5 expandiu para 33 itens após análise mais exaustiva no notebook 1.0 |
 | 3  | 3     | Separar quantity em df_compras (>0) e df_returns (<0) | Valores negativos em quantity foi identificado o insucesso da compara podendo ser retorno, mudança, cancelamento ou outros. Para o RFM muitas devoluções ou cancelamentos, talvez não seja um bom cliente. Explicações complementare notebook 1.0 seção 1.4. | Gerado mais 2 DF | sim |  |  |
 | 4  | 3     | Exportar df, df_compras e df_returns para data/interim/2.*.pkl | deixei 3 DF, poi 1 contém todo o histórico e os outros 2 possuem a separação do sucesso da compra  | 3 DF ao total | sim |  |  |
 | 5  | 4    | Retirar coluna `description` | Não há necessidade dela no momento | Retirado a coluna | sim |  |  |
 | 6  | 4    | Remover colunas 'European Community' e 'Unspecified' | Não são países ou são sujeiras. | Retirado linhas | sim |  |  |
+| 7  | 5    | Expandir lista de stock_codes especiais de 8 para 33 itens | Análise mais completa no notebook 1.0 revelou novos códigos não-produto: S, AMAZONFEE, DCGS*, gift_*, B, m, entre outros | Lista atualizada: 33 stock_codes removidos | sim |  |  |
 |    |      |  |  |  |  |  |  |
 
 ---
@@ -58,11 +60,16 @@ No ciclo 1, na primeira iteração do projeto, optei por iniciar fazendo o model
 | 1  | 1     | Criar feature `faturamento` = quantity × unit_price | Base para Fórmula RFM | Nova Feature | sim |  |  |
 | 2  | 1     | Calcular feature `monetário` (soma de faturamento por cliente) | Monetary do RFM | Nova Feature | sim |  |  |
 | 3  | 1     | Calcular feature `recencia_days` (dias desde a última compra) | Recencia do RFM | Nova Feature | sim |  |  |
-| 4  | 1     | Calcular feature `frequencia` (contagem de invoice_no únicos por cliente) | Frequencia do RFM | Nova Feature | sim |  |  |
+| 4  | 1     | Calcular feature `frequencia` (contagem de invoice_no únicos por cliente) | Frequencia do RFM | Nova Feature | não | 5 | Nome incorreto: a variável conta pedidos únicos, não mede frequência. Renomeada para `qtde_compras` no ciclo 5 |
 | 5  | 1     | Exportar df para data/interim3.0.fe.pkl | para ser utilizar pelos próximos notebooks | novo arquivo de dados em pkl | sim |  |  |
 | 6  | 2     | Calcular feature `avg_faturamento` (média de faturamento por cliente) | Média do Faturamento | Nova Feature | sim |  |  |
 | 7  | 3     | Calcular feature `retornos` (contagem de invoice_no únicos em df_returns) | calculo da quantidade de insucesso na venda | Nova Feature | sim |  |  |
 | 8   | 3      | Calcular a partir dos dados separados dos df de compras ou devoluções  | Os dados são os mesmo a qualidade é que está mudando, estou tratando de forma separada os dados de sucesso ou insucesso das compras. Até agora estavam todos juntos. | (`RFM` e `AVG_F` -> `df_compras`) & (`retornos` -> `df_returns`) | sim |  |  |
+| 9   | 5      | Renomear feature `frequencia` → `qtde_compras` | A variável contava pedidos únicos, não mede frequência de compras; renomeação para refletir semanticamente o que é calculado | Feature renomeada corretamente | sim |  |  |
+| 10  | 5      | Calcular feature `qtde_produto_comprado` (soma de quantity por cliente) | Volume total de unidades compradas; complementa `qtde_compras` (nº de pedidos distintos) | Nova Feature | sim |  |  |
+| 11  | 5      | Calcular feature `avg_recency_days` (média de dias entre compras consecutivas por cliente) | Mede o intervalo médio de recompra; clientes com apenas 1 compra ficam com NaN | Nova Feature; 2.923 clientes com NaN (single-purchase) | sim |  |  |
+| 12  | 5      | Calcular feature `frequencia` real (nº de pedidos / span de dias entre 1ª e última compra + 1) | Frequência correta do RFM: normaliza a contagem de pedidos pelo período de relacionamento do cliente | Nova Feature | sim |  |  |
+| 13  | 5      | Remover NAs resultantes de `avg_recency_days` | Clientes com apenas 1 pedido não possuem intervalo de recompra, gerando NaN. Excluídos pois são periféricos ao objetivo dos Insiders | 2.923 clientes removidos do dataset | sim |  |  |
 
 ---
 
